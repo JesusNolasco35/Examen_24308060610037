@@ -12,27 +12,18 @@
             <a class="navbar-brand" href="/">Mi Sitio</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/tareas">Tareas</a>
-                    </li>
-                    
                     {% if session.user_id %}
-                        <!-- Usuario logueado: saludo con dropdown -->
+                        <!-- Usuario logueado: muestra el nombre con dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Hola, {{ session.user_nombre }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="/perfil">Mi Perfil</a></li>
+                                <li><a class="dropdown-item" href="/acerca">Acerca de</a></li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger" href="/logout">Cerrar Sesión</a></li>
                             </ul>
-                        </li>
-                    {% else %}
-                        <!-- Usuario NO logueado -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/inicio">Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/registro">Registrarse</a>
                         </li>
                     {% endif %}
                 </ul>

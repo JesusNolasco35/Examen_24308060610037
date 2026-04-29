@@ -11,7 +11,7 @@ class GestorTareas:
         try:
             self.cliente = MongoClient(uri, serverSelectionTimeoutMS=5000)
             self.cliente.admin.command('ping')
-            self.db = self.cliente['gestor_tareas']
+            self.db = self.cliente['24308060610037']
             self.tareas = self.db['tareas']
             self.usuarios = self.db['usuarios']
             

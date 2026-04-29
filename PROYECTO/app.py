@@ -6,8 +6,7 @@ app.secret_key = '12345678'
 
 gestor = GestorTareas()
 
-# Crear usuario de prueba (coméntalo después)
-gestor.crear_usuario("trevi", "juan@gmail.com", "1234")
+# gestor.crear_usuario("trevi", "juan@gmail.com", "1234")  # Puedes comentar esta línea después
 
 @app.route('/')
 def index():
@@ -70,6 +69,34 @@ def tareas():
         flash('Debes iniciar sesión primero')
         return redirect(url_for('inicio'))
     return render_template('tareas.html')
+
+@app.route('/perfil', methods=['GET', 'POST'])
+def perfil():
+    if 'user_id' not in session:
+        flash('Debes iniciar sesión primero')
+        return redirect(url_for('inicio'))
+    
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        email = request.form.get('email')
+        
+        # Actualizar usuario (usando string como _id)
+        gestor.usuarios.update_one(
+            {"_id": session['user_id']},
+            {"$set": {"nombre": nombre, "email": email}}
+        )
+        
+        session['user_nombre'] = nombre
+        session['user_email'] = email
+        flash('Perfil actualizado correctamente')
+        return redirect(url_for('perfil'))
+    
+    usuario = gestor.usuarios.find_one({"_id": session['user_id']})
+    return render_template('perfil.html', usuario=usuario)
+
+@app.route('/acerca')
+def acerca():
+    return render_template('acerca.html')
 
 @app.route('/logout')
 def logout():
