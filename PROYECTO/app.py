@@ -6,7 +6,7 @@ app.secret_key = '12345678'
 
 gestor = GestorTareas()
 
-# gestor.crear_usuario("trevi", "juan@gmail.com", "1234")  # Puedes comentar esta línea después
+gestor.crear_usuario("trevi", "juan@gmail.com", "1234")
 
 @app.route('/')
 def index():
@@ -80,7 +80,6 @@ def perfil():
         nombre = request.form.get('nombre')
         email = request.form.get('email')
         
-        # Actualizar usuario (usando string como _id)
         gestor.usuarios.update_one(
             {"_id": session['user_id']},
             {"$set": {"nombre": nombre, "email": email}}
